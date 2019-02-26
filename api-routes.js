@@ -9,5 +9,17 @@ router.get('/', (req, res) => {
     });
 });
 
+// import Auth controllers
+let authControllers = require('./authControllers');
+
+// Auth routes
+router.route('/users')
+    .get(authControllers.index); // retrievs all users
+router.route('/signup')
+    .post(authControllers.signup); // creates new user account
+router.route('/user/:id/profile')
+    .get(authControllers.userProfile); // retrieve user profile
+
+
 // export API routes
 module.exports = router;

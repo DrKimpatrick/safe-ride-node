@@ -1,8 +1,26 @@
 // import express
 let express = require('express');
 
+// import body-parser
+let bodyParser = require('body-parser');
+
+// import mongoose
+let mongoose = require('mongoose');
+
 // Initialize the app
 let app = express();
+
+// configure bodyParser to andle post requests
+app.use(bodyParser.urlencoded({
+    extended: true
+}))
+
+app.use(bodyParser.json())
+
+// connect to mongoose and set connection variable
+mongoose.connect('mongodb://localhost/safe-ride')
+
+var db = mongoose.connection;
 
 // Setup server port
 let port = process.env.PORT || 8000;
