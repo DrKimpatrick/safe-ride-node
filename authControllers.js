@@ -36,7 +36,7 @@ exports.signup = (req, res) => {
 }
 
 // user details
-exports.userProfile = function (req, res) {
+exports.userProfile = (req, res) => {
     User.findById(req.params.id, (err, user) => {
         if (err) return next(err);
         res.json({
@@ -45,3 +45,40 @@ exports.userProfile = function (req, res) {
         })
     })
 };
+
+// update user data
+exports.updateProfile = (req, res) => {
+    User.findById(req.params.id, (err, user) => {
+        if (err)
+            res.json(err)
+        user.email = req.body.email ? req.body.email: user.email;
+        user.fullname = req.body.fullname ? req.body.fullname: user.fullname;
+        user.username = req.body.username ? req.body.username: user.username;
+        
+        // update the profile and check for errors
+        user.save((err) => {
+            if (err)
+                res.json(err);
+
+            res.json({
+                status: 'Success',
+                message: 'Successfully updated user profile',
+                data: user
+            });
+        });
+            
+    });
+}
+
+
+exports.deleteProfile = (req, res) => {
+    User.remove({_id: req.params.id}, (err) => {
+        if (err)
+            res.json(err)
+
+        res.json({
+            status: 'Success',
+            message: 'User profile deleted !'
+        })
+    })
+}

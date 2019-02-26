@@ -18,7 +18,9 @@ router.route('/users')
 router.route('/signup')
     .post(authControllers.signup); // creates new user account
 router.route('/user/:id/profile')
-    .get(authControllers.userProfile); // retrieve user profile
+    .get(authControllers.userProfile) // retrieve user profile
+    .patch(authControllers.updateProfile)  // update prfile
+    .delete(authControllers.deleteProfile);  // detele account
 
 
 // export API routes
